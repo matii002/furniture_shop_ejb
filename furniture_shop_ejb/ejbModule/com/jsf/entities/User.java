@@ -10,15 +10,15 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_users")
-	private int idUsers;
+	@Column(name = "id_user")
+	private int idUser;
 
 	private String city;
 
@@ -51,11 +51,11 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Order
 	@OneToMany(mappedBy = "user")
-	private List<Order> orders;
+	private List<Order> order;
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name = "users_id_users")
+	@JoinColumn(name = "user_id_user")
 	private User user;
 
 	// bi-directional many-to-one association to User
@@ -65,12 +65,12 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public int getIdUsers() {
-		return this.idUsers;
+	public int getIdUser() {
+		return this.idUser;
 	}
 
-	public void setIdUsers(int idUsers) {
-		this.idUsers = idUsers;
+	public void setIdUsers(int idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getCity() {
@@ -162,11 +162,11 @@ public class User implements Serializable {
 	}
 
 	public List<Order> getOrders() {
-		return this.orders;
+		return this.order;
 	}
 
 	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+		this.order = orders;
 	}
 
 	public Order addOrder(Order order) {

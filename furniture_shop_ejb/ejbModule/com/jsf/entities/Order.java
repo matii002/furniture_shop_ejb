@@ -11,15 +11,15 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="orders")
+@Table(name="order")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_orders")
-	private int idOrders;
+	@Column(name="id_order")
+	private int idOrder;
 
 	@Column(name="full_price")
 	private double fullPrice;
@@ -34,22 +34,22 @@ public class Order implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="users_id_users")
+	@JoinColumn(name="user_id_user")
 	private User user;
 
 	//bi-directional many-to-one association to OrdersProduct
 	@OneToMany(mappedBy="order")
-	private List<OrdersProduct> ordersProducts;
+	private List<OrderProduct> ordersProducts;
 
 	public Order() {
 	}
 
-	public int getIdOrders() {
-		return this.idOrders;
+	public int getIdOrder() {
+		return this.idOrder;
 	}
 
-	public void setIdOrders(int idOrders) {
-		this.idOrders = idOrders;
+	public void setIdOrder(int idOrder) {
+		this.idOrder = idOrder;
 	}
 
 	public double getFullPrice() {
@@ -72,7 +72,7 @@ public class Order implements Serializable {
 		return this.orderFinish;
 	}
 
-	public void setOrderFinish(Date orderFinish) {
+	public void setOrdeFinish(Date orderFinish) {
 		this.orderFinish = orderFinish;
 	}
 
@@ -84,26 +84,26 @@ public class Order implements Serializable {
 		this.user = user;
 	}
 
-	public List<OrdersProduct> getOrdersProducts() {
+	public List<OrderProduct> getOrdersProducts() {
 		return this.ordersProducts;
 	}
 
-	public void setOrdersProducts(List<OrdersProduct> ordersProducts) {
-		this.ordersProducts = ordersProducts;
+	public void setOrderProduct(List<OrderProduct> orderProduct) {
+		this.ordersProducts = orderProduct;
 	}
 
-	public OrdersProduct addOrdersProduct(OrdersProduct ordersProduct) {
-		getOrdersProducts().add(ordersProduct);
-		ordersProduct.setOrder(this);
+	public OrderProduct addOrderProduct(OrderProduct orderProduct) {
+		getOrdersProducts().add(orderProduct);
+		orderProduct.setOrder(this);
 
-		return ordersProduct;
+		return orderProduct;
 	}
 
-	public OrdersProduct removeOrdersProduct(OrdersProduct ordersProduct) {
-		getOrdersProducts().remove(ordersProduct);
-		ordersProduct.setOrder(null);
+	public OrderProduct removeOrderProduct(OrderProduct orderProduct) {
+		getOrdersProducts().remove(orderProduct);
+		orderProduct.setOrder(null);
 
-		return ordersProduct;
+		return orderProduct;
 	}
 
 }

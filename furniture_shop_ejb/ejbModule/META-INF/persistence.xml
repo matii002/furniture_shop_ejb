@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="furnitureShopPU"
 		transaction-type="JTA">
-		<jta-data-source>java:/furnitureshop</jta-data-source>
+		<jta-data-source>java:/furnitureshop1</jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect"
