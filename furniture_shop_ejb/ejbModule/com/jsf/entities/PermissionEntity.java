@@ -10,8 +10,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "permissions")
-@NamedQuery(name = "Permission.findAll", query = "SELECT p FROM Permission p")
-public class Permission implements Serializable {
+@NamedQuery(name = "PermissionEntity.findAll", query = "SELECT p FROM PermissionEntity p")
+public class PermissionEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,7 +35,7 @@ public class Permission implements Serializable {
 	@Column(name = "users_id_users")
 	private int usersIdUsers;
 
-	public Permission() {
+	public PermissionEntity() {
 	}
 
 	public int getIdPermissions() {

@@ -11,8 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="product")
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
-public class Product implements Serializable {
+@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM ProductEntity p")
+public class ProductEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,9 +32,9 @@ public class Product implements Serializable {
 
 	//bi-directional many-to-one association to OrdersProduct
 	@OneToMany(mappedBy="product")
-	private List<OrderProduct> orderProduct;
+	private List<OrderProductEntity> orderProduct;
 
-	public Product() {
+	public ProductEntity() {
 	}
 
 	public int getIdProduct() {
@@ -85,22 +85,22 @@ public class Product implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public List<OrderProduct> getOrderProduct() {
+	public List<OrderProductEntity> getOrderProduct() {
 		return this.orderProduct;
 	}
 
-	public void setOrderProduct(List<OrderProduct> orderProduct) {
+	public void setOrderProduct(List<OrderProductEntity> orderProduct) {
 		this.orderProduct = orderProduct;
 	}
 
-	public OrderProduct addOrderProduct(OrderProduct orderProduct) {
+	public OrderProductEntity addOrderProduct(OrderProductEntity orderProduct) {
 		getOrderProduct().add(orderProduct);
 		orderProduct.setProduct(this);
 
 		return orderProduct;
 	}
 
-	public OrderProduct removeOrderProduct(OrderProduct orderProduct) {
+	public OrderProductEntity removeOrderProduct(OrderProductEntity orderProduct) {
 		getOrderProduct().remove(orderProduct);
 		orderProduct.setProduct(null);
 

@@ -9,8 +9,8 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Role.findAll", query="SELECT r FROM Role r")
-public class Role implements Serializable {
+@NamedQuery(name="RoleEntity.findAll", query="SELECT r FROM RoleEntity r")
+public class RoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,7 +19,7 @@ public class Role implements Serializable {
 
 	private String name;
 
-	public Role() {
+	public RoleEntity() {
 	}
 
 	public int getIdRole() {

@@ -3,7 +3,7 @@ package com.jsf.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.jsf.entities.Product;
+import com.jsf.entities.ProductEntity;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -18,26 +18,26 @@ public class ProductDAO {
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;
 
-	public void create(Product product) {
+	public void create(ProductEntity product) {
 		em.persist(product);
 	}
 
-	public Product merge(Product product) {
+	public ProductEntity merge(ProductEntity product) {
 		return em.merge(product);
 	}
 
-	public void remove(Product product) {
+	public void remove(ProductEntity product) {
 		em.remove(em.merge(product));
 	}
 
-	public Product find(Object id) {
-		return em.find(Product.class, id);
+	public ProductEntity find(Object id) {
+		return em.find(ProductEntity.class, id);
 	}
 
-	public List<Product> getFullList() {
-		List<Product> list = null;
+	public List<ProductEntity> getFullList() {
+		List<ProductEntity> list = null;
 
-		Query query = em.createQuery("select p from Product p");
+		Query query = em.createQuery("select p from ProductEntity p");
 
 		try {
 			list = query.getResultList();
@@ -48,12 +48,12 @@ public class ProductDAO {
 		return list;
 	}
 
-	public List<Product> getList(Map<String, Object> searchParams) {
-		List<Product> list = null;
+	public List<ProductEntity> getList(Map<String, Object> searchParams) {
+		List<ProductEntity> list = null;
 
 		// 1. Build query string with parameters
 		String select = "select p ";
-		String from = "from Product p ";
+		String from = "from ProductEntity p ";
 		String where = "";
 		String orderby = "order by p.price asc, p.name";
 

@@ -10,8 +10,8 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="order_product")
-@NamedQuery(name="OrderProduct.findAll", query="SELECT o FROM OrderProduct o")
-public class OrderProduct implements Serializable {
+@NamedQuery(name="OrderProductEntity.findAll", query="SELECT o FROM OrderProductEntity o")
+public class OrderProductEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,14 +24,14 @@ public class OrderProduct implements Serializable {
 	//bi-directional many-to-one association to Order
 	@ManyToOne
 	@JoinColumn(name="order_id_order")
-	private Order order;
+	private OrderEntity order;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
 	@JoinColumn(name="product_id_product")
-	private Product product;
+	private ProductEntity product;
 
-	public OrderProduct() {
+	public OrderProductEntity() {
 	}
 
 	public int getIdOrderProduct() {
@@ -50,19 +50,19 @@ public class OrderProduct implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Order getOrder() {
+	public OrderEntity getOrder() {
 		return this.order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(OrderEntity order) {
 		this.order = order;
 	}
 
-	public Product getProduct() {
+	public ProductEntity getProduct() {
 		return this.product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(ProductEntity product) {
 		this.product = product;
 	}
 

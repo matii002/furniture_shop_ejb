@@ -11,8 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "user")
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-public class User implements Serializable {
+@NamedQuery(name = "UserEntity.findAll", query = "SELECT u FROM UserEntity u")
+public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -51,18 +51,18 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Order
 	@OneToMany(mappedBy = "user")
-	private List<Order> order;
+	private List<OrderEntity> order;
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "user_id_user")
-	private User user;
+	private UserEntity user;
 
 	// bi-directional many-to-one association to User
 	@OneToMany(mappedBy = "user")
-	private List<User> users;
+	private List<UserEntity> users;
 
-	public User() {
+	public UserEntity() {
 	}
 
 	public int getIdUser() {
@@ -161,56 +161,63 @@ public class User implements Serializable {
 		this.surname = surname;
 	}
 
-	public List<Order> getOrders() {
+	public List<OrderEntity> getOrders() {
 		return this.order;
 	}
 
-	public void setOrders(List<Order> orders) {
+	public void setOrders(List<OrderEntity> orders) {
 		this.order = orders;
 	}
 
-	public Order addOrder(Order order) {
+	public OrderEntity addOrder(OrderEntity order) {
 		getOrders().add(order);
 		order.setUser(this);
 
 		return order;
 	}
 
-	public Order removeOrder(Order order) {
+	public OrderEntity removeOrder(OrderEntity order) {
 		getOrders().remove(order);
 		order.setUser(null);
 
 		return order;
 	}
 
-	public User getUser() {
+	public UserEntity getUser() {
 		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 
-	public List<User> getUsers() {
+	public List<UserEntity> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<UserEntity> users) {
 		this.users = users;
 	}
 
-	public User addUser(User user) {
+	public UserEntity addUser(UserEntity user) {
 		getUsers().add(user);
 		user.setUser(this);
 
 		return user;
 	}
 
-	public User removeUser(User user) {
+	public UserEntity removeUser(UserEntity user) {
 		getUsers().remove(user);
 		user.setUser(null);
 
 		return user;
 	}
+	
+	@PrePersist
+    public void prePersist() {
+        if (this.createDate == null) {
+            this.createDate = new Date();
+        }
+    }
 
 }
