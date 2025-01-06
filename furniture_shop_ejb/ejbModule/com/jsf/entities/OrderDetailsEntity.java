@@ -1,7 +1,9 @@
 package com.jsf.entities;
 
 import java.io.Serializable;
+
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +13,9 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="order")
-@NamedQuery(name="OrderEntity.findAll", query="SELECT o FROM OrderEntity o")
-public class OrderEntity implements Serializable {
+@Table(name="order_details")
+@NamedQuery(name="OrderDetailsEntity.findAll", query="SELECT o FROM OrderDetailsEntity o")
+public class OrderDetailsEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,7 +24,7 @@ public class OrderEntity implements Serializable {
 	private int idOrder;
 
 	@Column(name="full_price")
-	private double fullPrice;
+	private Double fullPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="order_date")
@@ -38,10 +40,10 @@ public class OrderEntity implements Serializable {
 	private UserEntity user;
 
 	//bi-directional many-to-one association to OrdersProduct
-	@OneToMany(mappedBy="order")
+	@OneToMany(mappedBy="orderDetail")
 	private List<OrderProductEntity> ordersProducts;
 
-	public OrderEntity() {
+	public OrderDetailsEntity() {
 	}
 
 	public int getIdOrder() {
@@ -52,11 +54,11 @@ public class OrderEntity implements Serializable {
 		this.idOrder = idOrder;
 	}
 
-	public double getFullPrice() {
+	public Double getFullPrice() {
 		return this.fullPrice;
 	}
 
-	public void setFullPrice(double fullPrice) {
+	public void setFullPrice(Double fullPrice) {
 		this.fullPrice = fullPrice;
 	}
 
@@ -72,7 +74,7 @@ public class OrderEntity implements Serializable {
 		return this.orderFinish;
 	}
 
-	public void setOrdeFinish(Date orderFinish) {
+	public void setOrderFinish(Date orderFinish) {
 		this.orderFinish = orderFinish;
 	}
 
@@ -94,14 +96,14 @@ public class OrderEntity implements Serializable {
 
 	public OrderProductEntity addOrderProduct(OrderProductEntity orderProduct) {
 		getOrdersProducts().add(orderProduct);
-		orderProduct.setOrder(this);
+		orderProduct.setOrderDetail(this);
 
 		return orderProduct;
 	}
 
 	public OrderProductEntity removeOrderProduct(OrderProductEntity orderProduct) {
 		getOrdersProducts().remove(orderProduct);
-		orderProduct.setOrder(null);
+		orderProduct.setOrderDetail(null);
 
 		return orderProduct;
 	}

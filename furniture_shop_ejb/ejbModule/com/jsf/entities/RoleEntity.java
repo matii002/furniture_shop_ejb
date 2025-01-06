@@ -1,23 +1,27 @@
 package com.jsf.entities;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
+import java.util.List;
 
+import jakarta.persistence.*;
 
 /**
  * The persistent class for the role database table.
  * 
  */
 @Entity
-@NamedQuery(name="RoleEntity.findAll", query="SELECT r FROM RoleEntity r")
+@NamedQuery(name = "RoleEntity.findAll", query = "SELECT r FROM RoleEntity r")
 public class RoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_role")
+	@Column(name = "id_role")
 	private int idRole;
 
 	private String name;
+
+	@OneToMany(mappedBy = "role")
+	private List<PermissionEntity> permissions;
 
 	public RoleEntity() {
 	}

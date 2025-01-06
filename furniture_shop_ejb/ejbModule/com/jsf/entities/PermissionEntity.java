@@ -9,20 +9,22 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name = "permissions")
+@Table(name = "permission")
 @NamedQuery(name = "PermissionEntity.findAll", query = "SELECT p FROM PermissionEntity p")
 public class PermissionEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_permissions")
-	private int idPermissions;
+	@Column(name = "id_permission")
+	private int idPermission;
 
+	@Column(name = "active")
 	private byte active;
 
-	@Column(name = "role_id_role")
-	private int roleIdRole;
+	@ManyToOne
+	@JoinColumn(name = "role_id_role")
+	private RoleEntity role;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "set_date")
@@ -32,18 +34,19 @@ public class PermissionEntity implements Serializable {
 	@Column(name = "shut_down_date")
 	private Date shutDownDate;
 
-	@Column(name = "users_id_users")
-	private int usersIdUsers;
+	@ManyToOne
+	@JoinColumn(name = "user_id_user")
+	private UserEntity user;
 
 	public PermissionEntity() {
 	}
 
 	public int getIdPermissions() {
-		return this.idPermissions;
+		return this.idPermission;
 	}
 
 	public void setIdPermissions(int idPermissions) {
-		this.idPermissions = idPermissions;
+		this.idPermission = idPermissions;
 	}
 
 	public byte getActive() {
@@ -54,12 +57,12 @@ public class PermissionEntity implements Serializable {
 		this.active = active;
 	}
 
-	public int getRoleIdRole() {
-		return this.roleIdRole;
+	public RoleEntity getdRole() {
+		return this.role;
 	}
 
-	public void setRoleIdRole(int roleIdRole) {
-		this.roleIdRole = roleIdRole;
+	public void setRole(RoleEntity role) {
+		this.role = role;
 	}
 
 	public Date getSetDate() {
@@ -78,12 +81,12 @@ public class PermissionEntity implements Serializable {
 		this.shutDownDate = shutDownDate;
 	}
 
-	public int getUsersIdUsers() {
-		return this.usersIdUsers;
+	public UserEntity getUser() {
+		return this.user;
 	}
 
-	public void setUsersIdUsers(int usersIdUsers) {
-		this.usersIdUsers = usersIdUsers;
+	public void setUser (UserEntity user) {
+		this.user = user;
 	}
 
 }

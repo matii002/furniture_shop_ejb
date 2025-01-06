@@ -1,9 +1,9 @@
 package com.jsf.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.jsf.entities.ProductEntity;
 import com.jsf.entities.UserEntity;
 
 import jakarta.ejb.Stateless;
@@ -66,7 +66,6 @@ public class UserDAO {
 			where += "u.surname like :surname ";
 		}
 
-		
 		Query query = em.createQuery(select + from + where + orderby);
 
 		if (surname != null) {
@@ -80,5 +79,35 @@ public class UserDAO {
 		}
 
 		return list;
+	}
+
+	public UserEntity getUserFromDatabase(String login, String pass) {
+
+		String select = "select u ";
+		String from = "from UserEntity u ";
+		String where = "where u.login = :login AND u.pass = :pass";
+		
+		try {
+			Query query = em.createQuery(select + from + where);
+			
+			query.setParameter("login", login);
+			query.setParameter("pass", pass);
+			return (UserEntity) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<String> getUserRolesFromDatabase(UserEntity user) {
+
+		Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.login = :login AND u.pass = :pass", UserEntity.class);
+		
+		ArrayList<String> roles = new ArrayList<String>();
+
+		if (user.getLogin().equals("joszku")) {
+			roles.add("user");
+		}
+
+		return roles;
 	}
 }

@@ -23,8 +23,8 @@ public class UserEntity implements Serializable {
 	private String city;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "create_date")
-	private Date createDate;
+	@Column(name = "creation_date")
+	private Date creationDate;
 
 	private String email;
 
@@ -37,8 +37,8 @@ public class UserEntity implements Serializable {
 	private String login;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "modyfication_date")
-	private Date modyficationDate;
+	@Column(name = "modification_date")
+	private Date modificationDate;
 
 	private String pass;
 
@@ -51,8 +51,11 @@ public class UserEntity implements Serializable {
 
 	// bi-directional many-to-one association to Order
 	@OneToMany(mappedBy = "user")
-	private List<OrderEntity> order;
+	private List<OrderDetailsEntity> orderDetail;
 
+	@OneToMany(mappedBy = "user")
+	private List<PermissionEntity> permissions;
+	
 	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "user_id_user")
@@ -81,12 +84,12 @@ public class UserEntity implements Serializable {
 		this.city = city;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreationDate() {
+		return this.creationDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public String getEmail() {
@@ -121,12 +124,12 @@ public class UserEntity implements Serializable {
 		this.login = login;
 	}
 
-	public Date getModyficationDate() {
-		return this.modyficationDate;
+	public Date getModificationDate() {
+		return this.modificationDate;
 	}
 
-	public void setModyficationDate(Date modyficationDate) {
-		this.modyficationDate = modyficationDate;
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
 	}
 
 	public String getPass() {
@@ -161,22 +164,22 @@ public class UserEntity implements Serializable {
 		this.surname = surname;
 	}
 
-	public List<OrderEntity> getOrders() {
-		return this.order;
+	public List<OrderDetailsEntity> getOrders() {
+		return this.orderDetail;
 	}
 
-	public void setOrders(List<OrderEntity> orders) {
-		this.order = orders;
+	public void setOrders(List<OrderDetailsEntity> orders) {
+		this.orderDetail = orders;
 	}
 
-	public OrderEntity addOrder(OrderEntity order) {
+	public OrderDetailsEntity addOrder(OrderDetailsEntity order) {
 		getOrders().add(order);
 		order.setUser(this);
 
 		return order;
 	}
 
-	public OrderEntity removeOrder(OrderEntity order) {
+	public OrderDetailsEntity removeOrder(OrderDetailsEntity order) {
 		getOrders().remove(order);
 		order.setUser(null);
 
@@ -215,9 +218,13 @@ public class UserEntity implements Serializable {
 	
 	@PrePersist
     public void prePersist() {
-        if (this.createDate == null) {
-            this.createDate = new Date();
+        if (this.creationDate == null) {
+            this.creationDate = new Date();
         }
+    }
+	@PreUpdate
+	public void preUpdate() {
+            this.modificationDate = new Date();
     }
 
 }
