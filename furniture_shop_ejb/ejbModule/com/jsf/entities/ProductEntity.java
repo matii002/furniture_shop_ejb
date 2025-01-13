@@ -20,15 +20,23 @@ public class ProductEntity implements Serializable {
 	@Column(name="id_product")
 	private int idProduct;
 
+	@Column(name = "availibility")
 	private byte availibility;
 
+	@Column(name = "material")
 	private String material;
 
+	@Column(name = "name")
 	private String name;
 
+	@Column(name = "price")
 	private double price;
 
+	@Column(name = "quantity")
 	private int quantity;
+	
+	@Column(name = "image_url")
+	private String imageUrl;
 
 	//bi-directional many-to-one association to OrdersProduct
 	@OneToMany(mappedBy="product")
@@ -75,6 +83,14 @@ public class ProductEntity implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public String getImageUrl() {
+		return this.imageUrl;
+	}
+	
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public int getQuantity() {

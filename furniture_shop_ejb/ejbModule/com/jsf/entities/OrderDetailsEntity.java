@@ -1,6 +1,7 @@
 package com.jsf.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 
@@ -28,11 +29,11 @@ public class OrderDetailsEntity implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="order_date")
-	private Date orderDate;
+	private LocalDateTime orderDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="order_finish")
-	private Date orderFinish;
+	private LocalDateTime orderFinish;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -42,7 +43,7 @@ public class OrderDetailsEntity implements Serializable {
 	//bi-directional many-to-one association to OrdersProduct
 	@OneToMany(mappedBy="orderDetail")
 	private List<OrderProductEntity> ordersProducts;
-
+	
 	public OrderDetailsEntity() {
 	}
 
@@ -62,19 +63,19 @@ public class OrderDetailsEntity implements Serializable {
 		this.fullPrice = fullPrice;
 	}
 
-	public Date getOrderDate() {
+	public LocalDateTime getOrderDate() {
 		return this.orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(LocalDateTime orderDate) {
 		this.orderDate = orderDate;
 	}
 
-	public Date getOrderFinish() {
+	public LocalDateTime getOrderFinish() {
 		return this.orderFinish;
 	}
 
-	public void setOrderFinish(Date orderFinish) {
+	public void setOrderFinish(LocalDateTime orderFinish) {
 		this.orderFinish = orderFinish;
 	}
 

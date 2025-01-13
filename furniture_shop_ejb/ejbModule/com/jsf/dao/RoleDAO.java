@@ -3,7 +3,7 @@ package com.jsf.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.jsf.entities.ProductEntity;
+import com.jsf.entities.RoleEntity;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -14,30 +14,29 @@ import jakarta.persistence.Query;
 public class RoleDAO {
 	private final static String UNIT_NAME = "furnitureShopPU";
 
-	// Dependency injection (no setter method is needed)
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;
 
-	public void create(ProductEntity product) {
-		em.persist(product);
+	public void create(RoleEntity role) {
+		em.persist(role);
 	}
 
-	public ProductEntity merge(ProductEntity product) {
-		return em.merge(product);
+	public RoleEntity merge(RoleEntity role) {
+		return em.merge(role);
 	}
 
-	public void remove(ProductEntity product) {
-		em.remove(em.merge(product));
+	public void remove(RoleEntity role) {
+		em.remove(em.merge(role));
 	}
 
-	public ProductEntity find(Object id) {
-		return em.find(ProductEntity.class, id);
+	public RoleEntity find(Object id) {
+		return em.find(RoleEntity.class, id);
 	}
 
-	public List<ProductEntity> getFullList() {
-		List<ProductEntity> list = null;
+	public List<RoleEntity> getFullList() {
+		List<RoleEntity> list = null;
 
-		Query query = em.createQuery("select p from ProductEntity p");
+		Query query = em.createQuery("select r from RoleEntity r");
 
 		try {
 			list = query.getResultList();
@@ -48,39 +47,16 @@ public class RoleDAO {
 		return list;
 	}
 
-	public List<ProductEntity> getList(Map<String, Object> searchParams) {
-		List<ProductEntity> list = null;
+	public List<RoleEntity> getList(Map<String, Object> searchParams) {
+		List<RoleEntity> list = null;
 
-		// 1. Build query string with parameters
-		String select = "select p ";
-		String from = "from ProductEntity p ";
+		String select = "select r ";
+		String from = "from RoleEntity r ";
 		String where = "";
-		String orderby = "order by p.price asc, p.name";
+		String orderby = "";
 
-		// search for name
-		String name = (String) searchParams.get("name");
-		if (name != null) {
-			if (where.isEmpty()) {
-				where = "where ";
-			} else {
-				where += "and ";
-			}
-			where += "p.name like :name ";
-		}
-
-		// ... other parameters ...
-
-		// 2. Create query object
 		Query query = em.createQuery(select + from + where + orderby);
 
-		// 3. Set configured parameters
-		if (name != null) {
-			query.setParameter("name", name + "%");
-		}
-
-		// ... other parameters ...
-
-		// 4. Execute query and retrieve list of Product objects
 		try {
 			list = query.getResultList();
 		} catch (Exception e) {

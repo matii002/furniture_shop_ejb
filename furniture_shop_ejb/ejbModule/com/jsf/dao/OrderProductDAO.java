@@ -53,10 +53,10 @@ public class OrderProductDAO {
 		
 		String select = "select o ";
 	    String from = "from OrderProductEntity o ";
-	    String where = "";
-	    String orderby = "order by o.orderDetail.orderDate desc";
+	    String groupby = " ";
+	    String orderby = "order by o.orderDetail.idOrder desc";
 
-	    Query query = em.createQuery(select + from + orderby);
+	    Query query = em.createQuery(select + from + groupby + orderby);
 
 		try {
 			list = query.getResultList();

@@ -86,10 +86,10 @@ public class UserDAO {
 		String select = "select u ";
 		String from = "from UserEntity u ";
 		String where = "where u.login = :login AND u.pass = :pass";
-		
+
 		try {
 			Query query = em.createQuery(select + from + where);
-			
+
 			query.setParameter("login", login);
 			query.setParameter("pass", pass);
 			return (UserEntity) query.getSingleResult();
@@ -100,14 +100,24 @@ public class UserDAO {
 
 	public List<String> getUserRolesFromDatabase(UserEntity user) {
 
-		Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.login = :login AND u.pass = :pass", UserEntity.class);
-		
+		Query query = em
+				.createQuery("SELECT p.role.name FROM PermissionEntity p WHERE p.user.login = :login AND p.active = 1");
+
+		query.setParameter("login", user.getLogin());
+
+		List<String> result = query.getResultList();
+
 		ArrayList<String> roles = new ArrayList<String>();
 
-		if (user.getLogin().equals("joszku")) {
-			roles.add("user");
+		if (result != null && !result.isEmpty()) {
+			if (result.contains("user")) {
+				roles.add("user");
+			} else if (result.contains("admin")) {
+				roles.add("admin");
+			} else if (result.contains("shop-assistant")) {
+				roles.add("shop-assistant");
+			}
 		}
-
 		return roles;
 	}
 }

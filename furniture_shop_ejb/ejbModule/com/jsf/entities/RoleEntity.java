@@ -10,6 +10,7 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
+@Table(name="role")
 @NamedQuery(name = "RoleEntity.findAll", query = "SELECT r FROM RoleEntity r")
 public class RoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
