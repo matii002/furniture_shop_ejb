@@ -53,7 +53,7 @@ public class OrderDetailsDAO {
 		String select = "select o ";
 		String from = "from OrderDetailsEntity o ";
 		String where = "";
-		String orderby = "";
+		String orderby = "order by o.idOrder desc";
 
 		Integer id = (Integer) searchParams.get("id");
 		if (id != null) {

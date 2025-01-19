@@ -47,6 +47,42 @@ public class ProductDAO {
 		return list;
 	}
 
+	public List<ProductEntity> getList(Map<String, Object> searchParams, int first, int pageSize) {
+		List<ProductEntity> list = null;
+
+		String select = "select p ";
+		String from = "from ProductEntity p ";
+		String where = "";
+		String orderby = "order by p.price asc, p.name";
+
+		String name = (String) searchParams.get("name");
+		if (name != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "p.name like :name ";
+		}
+
+		Query query = em.createQuery(select + from + where + orderby);
+
+		if (name != null) {
+			query.setParameter("name", name + "%");
+		}
+
+		query.setFirstResult(first);
+		query.setMaxResults(pageSize);
+
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
 	public List<ProductEntity> getList(Map<String, Object> searchParams) {
 		List<ProductEntity> list = null;
 
@@ -65,14 +101,11 @@ public class ProductDAO {
 			where += "p.name like :name ";
 		}
 
-
 		Query query = em.createQuery(select + from + where + orderby);
 
-	
 		if (name != null) {
 			query.setParameter("name", name + "%");
 		}
-
 
 		try {
 			list = query.getResultList();
@@ -82,4 +115,38 @@ public class ProductDAO {
 
 		return list;
 	}
+
+	public int count(Map<String, Object> searchParams) {
+		int count = 0;
+
+		String select = "select count(p) ";
+		String from = "from ProductEntity p ";
+		String where = "";
+		String orderby = "";
+
+		String name = (String) searchParams.get("name");
+		if (name != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "p.name like :name ";
+		}
+
+		Query query = em.createQuery(select + from + where + orderby);
+
+		if (name != null) {
+			query.setParameter("name", name + "%");
+		}
+
+		try {
+			count = ((Long) query.getSingleResult()).intValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return count;
+	}
+
 }

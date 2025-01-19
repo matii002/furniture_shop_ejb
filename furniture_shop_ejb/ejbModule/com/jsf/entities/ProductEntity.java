@@ -4,20 +4,19 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the products database table.
  * 
  */
 @Entity
-@Table(name="product")
-@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM ProductEntity p")
+@Table(name = "product")
+@NamedQuery(name = "ProductEntity.findAll", query = "SELECT p FROM ProductEntity p")
 public class ProductEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_product")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_product")
 	private int idProduct;
 
 	@Column(name = "availibility")
@@ -34,12 +33,12 @@ public class ProductEntity implements Serializable {
 
 	@Column(name = "quantity")
 	private int quantity;
-	
+
 	@Column(name = "image_url")
 	private String imageUrl;
 
-	//bi-directional many-to-one association to OrdersProduct
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to OrdersProduct
+	@OneToMany(mappedBy = "product")
 	private List<OrderProductEntity> orderProduct;
 
 	public ProductEntity() {
@@ -84,11 +83,11 @@ public class ProductEntity implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public String getImageUrl() {
 		return this.imageUrl;
 	}
-	
+
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}

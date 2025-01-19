@@ -101,7 +101,7 @@ public class UserDAO {
 	public List<String> getUserRolesFromDatabase(UserEntity user) {
 
 		Query query = em
-				.createQuery("SELECT p.role.name FROM PermissionEntity p WHERE p.user.login = :login AND p.active = 1");
+				.createQuery("SELECT p.role.name FROM PermissionEntity p WHERE p.user.login = :login AND p.active = true");
 
 		query.setParameter("login", user.getLogin());
 

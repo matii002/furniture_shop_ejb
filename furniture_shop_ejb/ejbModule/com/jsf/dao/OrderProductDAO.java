@@ -12,7 +12,7 @@ import jakarta.persistence.Query;
 
 @Stateless
 public class OrderProductDAO {
-	
+
 	private final static String UNIT_NAME = "furnitureShopPU";
 
 	@PersistenceContext(unitName = UNIT_NAME)
@@ -50,13 +50,17 @@ public class OrderProductDAO {
 
 	public List<OrderProductEntity> getList(Map<String, Object> searchParams) {
 		List<OrderProductEntity> list = null;
-		
-		String select = "select o ";
-	    String from = "from OrderProductEntity o ";
-	    String groupby = " ";
-	    String orderby = "order by o.orderDetail.idOrder desc";
 
-	    Query query = em.createQuery(select + from + groupby + orderby);
+		String select = "select o ";
+		String from = "from OrderProductEntity o ";
+		String where = "where o.orderDetail.idOrder = :idOrder ";
+		String groupby = "";
+
+		Integer idOrder = (Integer) searchParams.get("idOrder");
+
+		Query query = em.createQuery(select + from + where);
+		if (idOrder != null)
+			query.setParameter("idOrder", idOrder);
 
 		try {
 			list = query.getResultList();
